@@ -51,10 +51,13 @@ field-service-management/
 - `POST /api/auth/register` - register user
 
 ### Service
-- `GET /api/service/create` - can be accessed by admin and provider only
-- `GET /api/service/accept` - can be accessed by provider only
+- `GET /api/service/create` - can be accessed by admin only to create Service Category
 - `GET /api/service/book` - can be accessed by user only
 
+### Provider
+- `GET /api/provider/service/create` - can be accessed to create Providing Services
+- `GET /api/provider/service/list` - can be accessed to get list of Services
+- `GET /api/provider/service/accept` - can be accessed by to accept the booking
 
 ## Environment Variables
 ```

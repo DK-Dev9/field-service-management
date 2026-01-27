@@ -1,30 +1,30 @@
 import { Router, Response } from "express";
 import authMiddleware, { AuthRequest } from "../middleware/auth.middleware";
 import roleMiddleware from "../middleware/role.middleware";
-import { createServiceCategory, getServiceCategories } from "../controllers/serviceCategory.controller";
+import { createProviderService, getProviderServices } from "../controllers/providerService.Controller";
 
 const router = Router();
 
 router.post(
-  "/category/create",
+  "/service/create",
   authMiddleware,
-  roleMiddleware("admin"),
-  createServiceCategory
+  roleMiddleware("provider"),
+  createProviderService
 );
 
 router.get(
-  "/category/list",
+  "/service/list",
   authMiddleware,
-  roleMiddleware("admin", "provider"),
-  getServiceCategories
+  roleMiddleware("admin", "provider", "user"),
+  getProviderServices
 );
 
 router.post(
-  "/book",
+  "/accept",
   authMiddleware,
-  roleMiddleware("user"),
+  roleMiddleware("provider"),
   (req: AuthRequest, res: Response) => {
-    res.json({ message: "Service booked by user" });
+    res.json({ message: "Service accepted by provider" });
   }
 );
 

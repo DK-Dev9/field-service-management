@@ -32,7 +32,16 @@ const authMiddleware = (
 
     req.user = decoded;
     next();
-  } catch (error) {
+  } catch (error: any) {
+    if (error.name === "TokenExpiredError") {
+      res.status(401).json({
+        message: "Access token expired",
+        code: "ACCESS_TOKEN_EXPIRED"
+      });
+    }
+    console.log("auth middleware error:", error);
+
+
     res.status(401).json({ message: "Invalid token" });
   }
 };

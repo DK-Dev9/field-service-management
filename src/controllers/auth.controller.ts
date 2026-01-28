@@ -42,5 +42,23 @@ export const login = async (req: Request, res: Response) => {
     { expiresIn: "1d" },
   );
 
+  res.cookie("accessToken", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
+
   res.json({ token });
 };
+
+export const logout = (req: Request, res: Response) => {
+  // client-side token invalidation OR client-side logout
+  // Invalidate token on client side by removing it
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  res.json({ message: "User logged out successfully" });
+}
